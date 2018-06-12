@@ -2,10 +2,10 @@
 require 'twilio-ruby'
 require 'dotenv/load'
 
-account_sid = ENV['ACCOUNT_SID_TWILIO']
-auth_token = ENV['AUTH_TOKEN_TWILIO']
 
-client = Twilio::REST::Client.new(account_sid, auth_token)
+
+
+client = Twilio::REST::Client.new(ENV['ACCOUNT_SID_TWILIO'], ENV['AUTH_TOKEN_TWILIO'])
 
 from = '+18628814509' # Your Twilio number
 to = '+19177533500' # Your mobile phone number
@@ -15,3 +15,8 @@ from: from,
 to: to,
 body: "Hey friend!"
 )
+
+#TODO: make current code into a send method
+#TODO: crete a get cat gif helper method.
+#TODO: call it and place gif in body of text
+#TODO: create basic page to enter phone number that executes this with to number as entered number
