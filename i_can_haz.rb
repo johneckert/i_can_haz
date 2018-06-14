@@ -1,14 +1,14 @@
 # Download the twilio-ruby library from twilio.com/docs/libraries/ruby
 require 'twilio-ruby'
 require 'dotenv/load'
-# require 'sinatra'
+require 'sinatra'
 require 'rest-client'
 
 
 class I_Can_Haz
-  def self.sendText to_number
+  def self.sendText to
     client = Twilio::REST::Client.new(ENV['ACCOUNT_SID_TWILIO'], ENV['AUTH_TOKEN_TWILIO'])
-
+    to_number = '+1' + to.split('-').join('')
     from = '+18628814509' # Your Twilio number
     to = to_number # Your mobile phone number
     body = self.getGif
@@ -30,20 +30,18 @@ class I_Can_Haz
   end
 end
 
-#TODO: make current code into a send method
-#TODO: crete a get cat gif helper method.
-#TODO: call it and place gif in body of text
+#####SINATRA ROUTES########
+
+get '/' do
+  erb :index
+end
+
+post '/' do
+  puts params
+  @to = params['to']
+  I_Can_Haz.sendText @to
+end
+
+
 #TODO: create basic page to enter phone number that executes this with to number as entered number
-# I_Can_Haz.getGif
-I_Can_Haz.sendText '+19177533500'
-
-######SINATRA ROUTES########
-
-# get '/' do
-#
-# end
-#
-# post '/' do
-#   @to = params['to']
-#   sendText @to
-# end
+# I_Can_Haz.sendText '+19177533500'
